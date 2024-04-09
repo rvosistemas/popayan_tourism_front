@@ -1,0 +1,22 @@
+version: '3.9'
+
+networks:
+  TOURISM_RED:
+      driver: bridge
+
+services:
+
+  angular_front_popayan_tourism_app:
+      image: node:latest
+      hostname: ${FRONT_ADMIN_POPAYAN_TOURISM_HOSTNAME}
+      container_name: ${FRONT_ADMIN_POPAYAN_TOURISM_HOSTNAME}
+      ports:
+        - "${FRONT_ADMIN_POPAYAN_TOURISM_PORT}:${FRONT_ADMIN_POPAYAN_TOURISM_PORT}"
+      networks:
+        - TOURISM_RED
+      working_dir: /${FRONT_ADMIN_POPAYAN_TOURISM_APP_NAME}
+      volumes:
+        - ./:/${FRONT_ADMIN_POPAYAN_TOURISM_APP_NAME}
+      command: >
+        sh -c "npm install -g @angular/cli && npm install && ng serve --host ${BASE_HOSTNAME} \
+        --port ${FRONT_ADMIN_POPAYAN_TOURISM_PORT} --poll=500"

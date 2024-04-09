@@ -1,0 +1,42 @@
+.spark {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: #0a87ff;
+  z-index: 9999;
+}
+
+.spark:nth-child(even) {
+  background: transparent;
+  border: 1px solid #ea0c0c;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y));
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+s {
+  --x: -685.888607275961px;
+  --y: 5.788230604721145px;
+  width: 9.73896px;
+  height: 9.73896px;
+  animation: 2.04493s ease-out 0s 1 normal forwards running animate;
+}
