@@ -2,7 +2,6 @@
   <mat-card-header>
     <mat-card-title>Iniciar sesión</mat-card-title>
   </mat-card-header>
-  <!-- <mat-card-content style="position: relative;"> -->
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-form-field>
@@ -17,9 +16,6 @@
       <button (click)="animateParticles()">
         Click me!
       </button>
-
-      <div *ngFor="let particle of particles" [@particle]="{value: '*', params: { x: particle.x, y: particle.y }}">
-      </div>
     </form>
   </mat-card-content>
 </mat-card>
