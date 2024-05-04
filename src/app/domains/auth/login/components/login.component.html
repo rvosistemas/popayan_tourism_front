@@ -1,6 +1,6 @@
-<mat-card style="background-color: rgb(37, 35, 35);">
+<mat-card>
   <mat-card-header>
-    <mat-card-title>Iniciar sesión</mat-card-title>
+    <mat-card-title>INICIAR SESIÓN</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -10,11 +10,8 @@
       <mat-form-field>
         <input matInput placeholder="Contraseña" type="password" formControlName="password">
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" (click)="sparks()">
+      <button mat-raised-button color="primary" type="submit">
         Iniciar sesión
-      </button>
-      <button (click)="animateParticles()">
-        Click me!
       </button>
     </form>
   </mat-card-content>
