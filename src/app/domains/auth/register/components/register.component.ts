@@ -4,19 +4,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import _moment from 'moment'; // This is important
-
-
-export function customDateFormat(date: Date): string {
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
+import { Router } from '@angular/router';
+import { RegisterSuccessDialogComponent } from '../../register-success-dialog/register-success-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -31,48 +25,82 @@ export function customDateFormat(date: Date): string {
     MatButtonModule,
     CommonModule
   ],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
-    {
-      provide: MAT_DATE_FORMATS,
-      useValue: {
-        parse: { dateInput: 'DD/MM/YYYY' },
-        display: { dateInput: 'DD/MM/YYYY', dateA11yLabel: customDateFormat }
-      }
-    }
-  ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      dateOfBirth: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]]
     });
   }
-
 
   register() {
-    this.authService.register(
-      this.registerForm.value.username, this.registerForm.value.password
-    ).subscribe({
-      next: () => {
-        console.log('Register successful');
-      },
-      error: (error) => {
-        console.error('Register failed', error);
-      }
+    if (this.registerForm.valid) {
+      const data = {
+        username: this.registerForm.value.username,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+        date_of_birth: this.registerForm.value.dateOfBirth.toISOString().split('T')[0] // Formatear la fecha como 'YYYY-MM-DD'
+      };
+
+      this.authService.register(data).subscribe({
+        next: () => {
+          this.errorMessage = null;
+          this.showSuccessDialog();
+        },
+        error: (error) => {
+          console.log("K".repeat(20) + " Obj: error: " + JSON.stringify(error));
+          if (error.status === 400) {
+            this.errorMessage = 'User already exists or invalid data, please try again';
+          } else {
+            this.errorMessage = 'An error occurred, please try again later';
+          }
+        }
+      });
+    } else {
+      this.registerForm.markAllAsTouched();
+    }
+  }
+
+  showSuccessDialog() {
+    const dialogRef = this.dialog.open(RegisterSuccessDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/login']);
     });
   }
 
+  getUsernameErrorMessage() {
+    const usernameControl = this.registerForm.get('username');
+    return usernameControl?.hasError('required') ? 'Username is required' : '';
+  }
 
+  getEmailErrorMessage() {
+    const emailControl = this.registerForm.get('email');
+    if (emailControl?.hasError('required')) {
+      return 'Email is required';
+    }
+    return emailControl?.hasError('email') ? 'Email is not valid' : '';
+  }
 
+  getPasswordErrorMessage() {
+    const passwordControl = this.registerForm.get('password');
+    return passwordControl?.hasError('required') ? 'Password is required' : '';
+  }
+
+  getDateOfBirthErrorMessage() {
+    const dateOfBirthControl = this.registerForm.get('dateOfBirth');
+    return dateOfBirthControl?.hasError('required') ? 'Date of birth is required' : '';
+  }
 }

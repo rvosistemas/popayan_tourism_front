@@ -6,24 +6,49 @@
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <mat-form-field>
         <input matInput placeholder="Nombre de usuario" type="text" formControlName="username">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [matDatepicker]="picker"
-               formControlName="dateOfBirth" [value]="registerForm.get('dateOfBirth')?.value | date: 'dd/MM/yyyy'">
-        <mat-hint>DD/MM/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+        <mat-error>
+          {{ getUsernameErrorMessage() }}
+        </mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="Correo electrónico" type="email" formControlName="email">
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+        <mat-error>
+          {{ getEmailErrorMessage() }}
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (registerForm.get('dateOfBirth')?.touched && registerForm.get('dateOfBirth')?.invalid) {
+        <mat-error>
+          {{ getDateOfBirthErrorMessage() }}
+        </mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="Contraseña" type="password" formControlName="password">
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+        <mat-error>
+          {{ getPasswordErrorMessage() }}
+        </mat-error>
+        }
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">
         Registrarse
       </button>
     </form>
+    @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+    }
   </mat-card-content>
+  <mat-card-actions>
+    <p>¿Ya tienes una cuenta?<a href="/login">Iniciar sesión</a></p>
+  </mat-card-actions>
 </mat-card>

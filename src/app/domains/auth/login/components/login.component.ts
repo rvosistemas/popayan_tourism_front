@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -35,16 +36,39 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.authService.login(
-        this.loginForm.get('email')?.value, this.loginForm.get('password')?.value
-      ).subscribe({
+      const email = this.loginForm.get('email')?.value;
+      const password = this.loginForm.get('password')?.value;
+      this.authService.login(email, password).subscribe({
         next: () => {
+          this.errorMessage = null;
           console.log('Login successful');
         },
         error: (error) => {
-          console.error('Login failed', error);
+          if (error.status === 400) {
+            this.errorMessage = 'Invalid credentials, please try again';
+          } else {
+            this.errorMessage = 'An error occurred, please try again later';
+          }
         }
       });
     }
+    else {
+      this.loginForm.markAllAsTouched();
+    }
   }
+
+  getEmailErrorMessage() {
+    const emailControl = this.loginForm.get('email');
+
+    if (emailControl?.hasError('required')) {
+      return 'Email is required';
+    }
+    return emailControl?.hasError('email') ? 'Email is not valid' : '';
+  }
+
+  getPasswordErrorMessage() {
+    const passwordControl = this.loginForm.get('password');
+    return passwordControl?.hasError('required') ? 'Password is required' : '';
+  }
+
 }

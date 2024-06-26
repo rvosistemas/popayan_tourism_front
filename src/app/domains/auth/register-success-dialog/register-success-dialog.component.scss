@@ -1,0 +1,26 @@
+.register-success-dialog {
+  text-align: center;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  div[mat-dialog-content] {
+    margin-bottom: 20px;
+  }
+
+  div[mat-dialog-actions] {
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: #1976d2;
+      color: white;
+
+      &:hover {
+        background-color: #1565c0;
+      }
+    }
+  }
+}

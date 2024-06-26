@@ -6,13 +6,31 @@
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-form-field>
         <input matInput placeholder="Correo electrónico" type="email" formControlName="email">
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+        <mat-error>
+          {{ getEmailErrorMessage() }}
+        </mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="Contraseña" type="password" formControlName="password">
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+        <mat-error>
+          {{ getPasswordErrorMessage() }}
+        </mat-error>
+        }
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">
         Iniciar sesión
       </button>
     </form>
+    @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+    }
   </mat-card-content>
+  <mat-card-actions>
+    <p>¿No tienes cuenta? <a href="/register">Regístrate</a></p>
+  </mat-card-actions>
 </mat-card>
