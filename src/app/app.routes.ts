@@ -7,11 +7,11 @@ import { NotFoundComponent } from '@/info/pages/not-found/not-found.component';
 export const routes: Routes = [
   {
     path: 'login',
-    loadComponent: () => import('@/auth/login/components/login.component').then(m => m.LoginComponent)
+    loadComponent: () => import('@/auth/components/login/login.component').then(m => m.LoginComponent)
   },
   {
     path: 'register',
-    loadComponent: () => import('@/auth/register/components/register.component').then(m => m.RegisterComponent)
+    loadComponent: () => import('@/auth/components/register/register.component').then(m => m.RegisterComponent)
   },
   {
     path: '',

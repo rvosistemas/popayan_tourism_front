@@ -4,13 +4,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { RegisterSuccessDialogComponent } from '../../register-success-dialog/register-success-dialog.component';
+import { RegisterSuccessDialogComponent } from '../register-success-dialog/register-success-dialog.component';
+import { MY_FORMATS } from '@/shared/utils/date/formats';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +28,11 @@ import { RegisterSuccessDialogComponent } from '../../register-success-dialog/re
     CommonModule
   ],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ]
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -39,7 +45,7 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]]
@@ -49,10 +55,10 @@ export class RegisterComponent {
   register() {
     if (this.registerForm.valid) {
       const data = {
-        username: this.registerForm.value.username,
+        userName: this.registerForm.value.userName,
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
-        date_of_birth: this.registerForm.value.dateOfBirth.toISOString().split('T')[0] // Formatear la fecha como 'YYYY-MM-DD'
+        dateOfBirth: this.registerForm.value.dateOfBirth.toISOString().split('T')[0]
       };
 
       this.authService.register(data).subscribe({
@@ -61,7 +67,6 @@ export class RegisterComponent {
           this.showSuccessDialog();
         },
         error: (error) => {
-          console.log("K".repeat(20) + " Obj: error: " + JSON.stringify(error));
           if (error.status === 400) {
             this.errorMessage = 'User already exists or invalid data, please try again';
           } else {
@@ -82,8 +87,8 @@ export class RegisterComponent {
   }
 
   getUsernameErrorMessage() {
-    const usernameControl = this.registerForm.get('username');
-    return usernameControl?.hasError('required') ? 'Username is required' : '';
+    const userNameControl = this.registerForm.get('userName');
+    return userNameControl?.hasError('required') ? 'Username is required' : '';
   }
 
   getEmailErrorMessage() {

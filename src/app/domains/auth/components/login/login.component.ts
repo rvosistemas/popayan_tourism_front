@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 
+//! TODO: Agregar recuperacion de contraseña
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -29,16 +31,16 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
 
   login() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')?.value;
+      const userName = this.loginForm.get('userName')?.value;
       const password = this.loginForm.get('password')?.value;
-      this.authService.login(email, password).subscribe({
+      this.authService.login(userName, password).subscribe({
         next: () => {
           this.errorMessage = null;
           console.log('Login successful');
@@ -57,13 +59,9 @@ export class LoginComponent {
     }
   }
 
-  getEmailErrorMessage() {
-    const emailControl = this.loginForm.get('email');
-
-    if (emailControl?.hasError('required')) {
-      return 'Email is required';
-    }
-    return emailControl?.hasError('email') ? 'Email is not valid' : '';
+  getUsernameErrorMessage() {
+    const userNameControl = this.loginForm.get('userName');
+    return userNameControl?.hasError('required') ? 'Username is required' : '';
   }
 
   getPasswordErrorMessage() {

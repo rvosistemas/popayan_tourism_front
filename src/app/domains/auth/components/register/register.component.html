@@ -6,7 +6,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <mat-form-field>
         <input matInput placeholder="Nombre de usuario" type="text" formControlName="username">
-        @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+        @if (registerForm.get('userName')?.touched && registerForm.get('userName')?.invalid) {
         <mat-error>
           {{ getUsernameErrorMessage() }}
         </mat-error>

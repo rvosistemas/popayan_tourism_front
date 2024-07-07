@@ -10,8 +10,8 @@ describe('RegisterSuccessDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RegisterSuccessDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(RegisterSuccessDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

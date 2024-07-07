@@ -5,10 +5,10 @@
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-form-field>
-        <input matInput placeholder="Correo electrónico" type="email" formControlName="email">
-        @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+        <input matInput placeholder="Nombre de usuario" type="text" formControlName="userName">
+        @if (loginForm.get('userName')?.touched && loginForm.get('userName')?.invalid) {
         <mat-error>
-          {{ getEmailErrorMessage() }}
+          {{ getUsernameErrorMessage() }}
         </mat-error>
         }
       </mat-form-field>
