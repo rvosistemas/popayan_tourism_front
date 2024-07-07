@@ -29,8 +29,11 @@
       {{ errorMessage }}
     </div>
     }
+    <div>
+      <a (click)="navigateToResetPassword()">¿Olvidaste tu contraseña? <span class="highlight">clic aquí</span></a>
+    </div>
   </mat-card-content>
   <mat-card-actions>
-    <p>¿No tienes cuenta? <a href="/register">Regístrate</a></p>
+    <p>¿No tienes cuenta? <a href="/auth/register">Regístrate</a></p>
   </mat-card-actions>
 </mat-card>

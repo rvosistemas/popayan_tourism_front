@@ -55,10 +55,10 @@ export class RegisterComponent {
   register() {
     if (this.registerForm.valid) {
       const data = {
-        userName: this.registerForm.value.userName,
+        username: this.registerForm.value.userName,
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
-        dateOfBirth: this.registerForm.value.dateOfBirth.toISOString().split('T')[0]
+        date_of_birth: this.registerForm.value.dateOfBirth.toISOString().split('T')[0]
       };
 
       this.authService.register(data).subscribe({

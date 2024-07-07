@@ -5,8 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-
-//! TODO: Agregar recuperacion de contraseña
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +28,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       userName: ['', [Validators.required]],
@@ -67,6 +67,10 @@ export class LoginComponent {
   getPasswordErrorMessage() {
     const passwordControl = this.loginForm.get('password');
     return passwordControl?.hasError('required') ? 'Password is required' : '';
+  }
+
+  navigateToResetPassword() {
+    this.router.navigate(['/auth/request-password-reset']);
   }
 
 }

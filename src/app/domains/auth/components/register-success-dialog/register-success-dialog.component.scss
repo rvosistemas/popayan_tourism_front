@@ -1,5 +1,6 @@
 .register-success-dialog {
   text-align: center;
+  padding: 20px;
 
   h1 {
     font-size: 24px;
@@ -19,7 +20,7 @@
       color: white;
 
       &:hover {
-        background-color: #1565c0;
+        background-color: #0f4078;
       }
     }
   }

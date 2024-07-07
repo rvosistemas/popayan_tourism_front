@@ -33,15 +33,20 @@ mat-card {
       color: red;
       margin-top: 10px;
     }
-  }
 
-  .highlight {
-    color: rgb(221, 45, 21);
-    text-decoration: underline;
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+
+    .info-message {
+      color: blue;
+      margin-top: 10px;
+    }
+
   }
 
   mat-card-actions {
     margin-top: 20px;
   }
-
 }
