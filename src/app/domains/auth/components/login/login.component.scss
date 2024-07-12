@@ -31,7 +31,10 @@ mat-card {
 
     .error-message {
       color: red;
-      margin-top: 10px;
+    }
+
+    .forgot-password {
+      margin: 0px;
     }
   }
 
@@ -41,7 +44,7 @@ mat-card {
   }
 
   mat-card-actions {
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
 }
