@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>INICIAR SESIÓN</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <mat-form-field>
+        <input matInput placeholder="Nombre de usuario" type="text" formControlName="userName">
+        @if (loginForm.get('userName')?.touched && loginForm.get('userName')?.invalid) {
+        <mat-error>
+          {{ getUsernameErrorMessage() }}
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Contraseña" type="password" formControlName="password">
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+        <mat-error>
+          {{ getPasswordErrorMessage() }}
+        </mat-error>
+        }
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">
+        Iniciar sesión
+      </button>
+    </form>
+    @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+    }
+    <div class="forgot-password">
+      <a (click)="navigateToResetPassword()">¿Olvidaste tu contraseña? <span class="highlight">clic aquí</span></a>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <p>¿No tienes cuenta? <a href="/auth/register">Regístrate</a></p>
+  </mat-card-actions>
+</mat-card>
