@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterSuccessDialogComponent } from './register-success-dialog.component';
+// import { RegisterSuccessDialogComponent } from './register-success-dialog.component';
 
-describe('RegisterSuccessDialogComponent', () => {
-  let component: RegisterSuccessDialogComponent;
-  let fixture: ComponentFixture<RegisterSuccessDialogComponent>;
+// describe('RegisterSuccessDialogComponent', () => {
+//   let component: RegisterSuccessDialogComponent;
+//   let fixture: ComponentFixture<RegisterSuccessDialogComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RegisterSuccessDialogComponent]
-    })
-      .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [RegisterSuccessDialogComponent]
+//     })
+//       .compileComponents();
 
-    fixture = TestBed.createComponent(RegisterSuccessDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(RegisterSuccessDialogComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

@@ -10,12 +10,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(data: Object) {
-    return this.http.post(`${this.apiUrl}/user_profile/register/`, data);
+  register(data: object) {
+    return this.http.post(`${this.apiUrl}/user_profile/api/register`, data);
   }
 
   login(username: string, password: string) {
-    return this.http.post(`${this.apiUrl}/user_profile/login/`, { username, password });
+    return this.http.post(`${this.apiUrl}/user_profile/api/login`, { username, password });
   }
 
   setToken(token: string): void {
