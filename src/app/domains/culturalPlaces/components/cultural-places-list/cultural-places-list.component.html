@@ -1,0 +1,9 @@
+<div class="cultural-places-list" fxLayout="row wrap" fxLayoutGap="16px grid">
+  @for (CulturalPlace of culturalPlaces; track CulturalPlace.id) {
+  <div fxFlex="1 1 calc(25% - 16px)" fxFlex.xs="100%" fxFlex.sm="calc(50% - 16px)" fxFlex.md="calc(33.33% - 16px)">
+    <app-cultural-places-item [culturalPlace]="CulturalPlace"></app-cultural-places-item>
+  </div>
+  } @empty {
+  <p>No cultural places available.</p>
+  }
+</div>

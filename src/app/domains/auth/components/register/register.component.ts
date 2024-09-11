@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RegisterSuccessDialogComponent } from '../register-success-dialog/register-success-dialog.component';
-import { MY_FORMATS } from '@/shared/utils/date/formats';
+import { MY_FORMATS } from '../../../../shared/utils/date/formats';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({

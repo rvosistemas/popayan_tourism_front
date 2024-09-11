@@ -44,6 +44,7 @@ export class LoginComponent {
         next: () => {
           this.errorMessage = null;
           console.log('Login successful');
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           if (error.status === 400) {

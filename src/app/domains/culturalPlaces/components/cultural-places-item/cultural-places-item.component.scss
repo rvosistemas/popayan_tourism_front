@@ -1,0 +1,28 @@
+.cultural-place-item {
+  margin: 16px 0;
+
+  .inactive-message {
+    color: red;
+    font-weight: bold;
+  }
+
+  mat-card {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .example-header-image {
+    background-image: url('/src/assets/default-avatar.png');
+    background-size: cover;
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+}
